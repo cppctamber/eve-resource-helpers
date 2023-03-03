@@ -29,9 +29,9 @@ export function validateClient(client) {
 }
 
 /**
- * Creates a res file index object
+ * Creates a res file index array
  * @param {String} str
- * @returns {Object}
+ * @returns {Array}
  */
 export function resFileIndexToObject(str) {
     return str
@@ -49,9 +49,9 @@ export function resFileIndexToObject(str) {
 }
 
 /**
- * Converts a resource to an object
+ * Converts a resource array in to an object
  * @param {Array} resource
- * @returns {{size: *, hash: *, resPath: *, md5: *}}
+ * @returns {{ext: string, fnv164: string, size: number, prefix: string, name: string, dir: string, hash: string, resPath: string, md5: string}}
  */
 export function res(resource) {
     return {
@@ -128,7 +128,7 @@ export async function readJSON(filepath) {
 }
 
 /**
- * Writes a json file, automatically creates the path
+ * Writes a json file
  * @param {String} filepath
  * @param {Object|Array} [obj={}]
  * @param {Boolean} [pretty]
