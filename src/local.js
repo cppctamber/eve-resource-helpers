@@ -37,9 +37,7 @@ export async function readLocalStartIni(startIniPath) {
 export async function getLocalClientBuild(eveSharedCacheDir, client) {
     client = validateClient(client);
     const startIniPath = path.join(eveSharedCacheDir, client, "start.ini");
-    if (!await exists(startIniPath)) return null;
-    const {build} = await readLocalStartIni(startIniPath);
-    return build || null;
+    return await exists(startIniPath) ? await readLocalStartIni(startIniPath).then(ini => ini.build || null) : null;
 }
 
 /**
@@ -52,8 +50,7 @@ export async function getLocalClientBuild(eveSharedCacheDir, client) {
 export async function getLocalClientResFileIndex(eveSharedCacheDir, client) {
     client = validateClient(client);
     const resFileIndexPath = path.join(eveSharedCacheDir, client, "resfileindex.txt");
-    if (!await exists(resFileIndexPath)) return null;
-    return readLocalResFileIndex(resFileIndexPath);
+    return await exists(resFileIndexPath) ? readLocalResFileIndex(resFileIndexPath) : null;
 }
 
 /**
@@ -66,8 +63,7 @@ export async function getLocalClientResFileIndex(eveSharedCacheDir, client) {
 export async function getLocalClientAppFileIndex(eveSharedCacheDir, client) {
     client = validateClient(client);
     const resFileIndexPath = path.join(eveSharedCacheDir, `index_${client}.txt`);
-    if (!await exists(resFileIndexPath)) return null;
-    return readLocalResFileIndex(resFileIndexPath);
+    return await exists(resFileIndexPath) ? readLocalResFileIndex(resFileIndexPath) : null;
 }
 
 /**
