@@ -17,22 +17,19 @@ const
  */
 export async function getCurrentRemoteClientBuild(client) {
     client = validateClient(client);
-    const url = `eveclient_${client.toUpperCase()}.json`;
-    console.log(`${client} > get remote ${url}`);
     return app
-        .get(url)
+        .get(`eveclient_${client.toUpperCase()}.json`)
         .then(json => Number(json["build"]));
 }
 
 /**
  * Gets a build's app file index without caching
- * TODO: Figure a better way of identifying invalid builds
  * @param {String|Number} build
  * @returns {Promise<Array<Array>>}
  */
 async function getRemoteBuildAppFileIndexWithoutCaching(build) {
     return app
-        .get(`/eveonline_${build}.txt`, {responseType: "text"})
+        .get(`eveonline_${build}.txt`, {responseType: "text"})
         .then(response => resFileIndexToObject(response.data))
 }
 
