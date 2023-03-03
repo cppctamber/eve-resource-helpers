@@ -29,6 +29,7 @@ export async function readLocalStartIni(startIniPath) {
 
 /**
  * Gets the build of a local client
+ * - Returns null if the client start.ini doesn't exist or is missing a build number
  * @param {String} eveSharedCacheDir
  * @param {String} client
  * @returns {Promise<null|Number>}
@@ -43,6 +44,7 @@ export async function getLocalClientBuild(eveSharedCacheDir, client) {
 
 /**
  * Gets a client's res file index
+ * - Returns null if there is no res file index for the client
  * @param {String} eveSharedCacheDir
  * @param {String} client
  * @returns {Promise<null|Array>}
@@ -56,6 +58,7 @@ export async function getLocalClientResFileIndex(eveSharedCacheDir, client) {
 
 /**
  * Gets a client's app file index
+ * - Returns null if there is no app file index for the client
  * @param {String} eveSharedCacheDir
  * @param {String} client
  * @returns {Promise<null|Array>}
@@ -69,16 +72,16 @@ export async function getLocalClientAppFileIndex(eveSharedCacheDir, client) {
 
 /**
  * Gets client info
+ * - Returns null if the client is invalid or data is missing
  * @param {String} eveSharedCacheDir
  * @param {String} client
- * @returns {Promise<{build: Number, client: String, res: Array<Array>}>}
+ * @returns {Promise<{build: Number, client: String, res: Array<Array>}|null>}
  */
 export async function getLocalClientInfo(eveSharedCacheDir, client) {
-    const [build, res] = await Promise.all([
-        getLocalClientBuild(eveSharedCacheDir, client),
-        getLocalClientResFileIndex(eveSharedCacheDir, client)
-    ]);
-    return build && client ? {build, client, res} : null;
+    const build = await getLocalClientBuild(eveSharedCacheDir, client);
+    if (!build) return null;
+    const index = await getLocalClientResFileIndex(eveSharedCacheDir, client);
+    return index ? { build, client, index } : null;
 }
 
 /**
@@ -86,7 +89,7 @@ export async function getLocalClientInfo(eveSharedCacheDir, client) {
  * @param {String} targetFilePath
  * @param {String} hash
  * @param {String} eveSharedCacheDir
- * @returns {Promise<boolean>} true if copied
+ * @returns {Promise<boolean>} true if the has exists locally and was copied
  */
 export async function storeLocalHashIfExists(targetFilePath, hash, eveSharedCacheDir) {
     const srcFilePath = path.join(eveSharedCacheDir, "ResFiles", hash);

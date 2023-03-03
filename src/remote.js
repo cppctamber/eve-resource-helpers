@@ -71,7 +71,7 @@ export async function getRemoteBuildResFileIndex(build) {
 
 /**
  * Gets a client's current build
- * @param client
+ * @param {String} client
  * @returns {Promise<{build: (Number|null), client, index: (Array|null)}>}
  */
 export async function getCurrentRemoteClientInfo(client) {
