@@ -1,5 +1,5 @@
-export * as local from "./local.js";
-export * as remote from "./remote.js";
+export * from "./local.js";
+export * from "./remote.js";
 export * as utils from "./utils.js";
 
 import {storeRemoteHash} from "./remote.js";
