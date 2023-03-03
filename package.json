@@ -1,0 +1,28 @@
+{
+  "name": "eve-resource-helpers",
+  "version": "1.0.0",
+  "description": "Eve resource helpers",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cppctamber/eve-resource-helpers.git"
+  },
+  "keywords": [
+    "eve",
+    "online",
+    "resources"
+  ],
+  "author": "cppctamber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cppctamber/eve-resource-helpers/issues"
+  },
+  "homepage": "https://github.com/cppctamber/eve-resource-helpers#readme",
+  "devDependencies": {
+    "axios": "^1.3.4"
+  }
+}
